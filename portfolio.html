@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Derek Cannistraro</title>
+<style type="text/css">
+body{
+	background-color: #222 !important;
+}
+.panel-heading:hover{
+	cursor:pointer;
+}
+.navbar .navbar-nav, .navbar .navbar-header{
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+}
+.panel-body{
+	font-size:1.2em;
+}
+.whiteSpace{
+	margin-top: 50px;
+}
+</style>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".panel-heading").click(function(){
+		$(this).next().collapse('toggle');
+	});
+	$(".collapse").on('show.bs.collapse', function(){
+		$(this).prev().find(">:first-child").addClass("glyphicon-triangle-right");
+        $(this).prev().find(">:first-child").removeClass("glyphicon-triangle-bottom");
+    });
+    $(".collapse").on('hide.bs.collapse', function(){
+        $(this).prev().find(">:first-child").removeClass("glyphicon-triangle-right");
+		$(this).prev().find(">:first-child").addClass("glyphicon-triangle-bottom");
+    });
+	
+	var offset = $('nav').offset().top;
+	$(window).scroll(function(){
+		if($(this).scrollTop() >= offset){
+			$('nav').addClass('navbar-fixed-top');
+			$('html').addClass('whiteSpace');
+		}else{
+			$('nav').removeClass('navbar-fixed-top');
+			$('html').removeClass('whiteSpace');
+		}
+	});
+});
+</script>
+
+</head>
+<body>
+<header class="jumbotron"style="margin:0px;background-color:#1abc9c;color:#fff;">
+<br><br>
+<h1 align="center">Derek Cannistraro</h1>
+<br><br>
+</header>
+<nav class="navbar navbar-default" style="margin:0px;">
+		
+		<div align="center">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">Home</a>
+		</div>
+		  <ul class="nav navbar-nav">
+			<li class="active"><a href="#res">Resume</a></li>
+			<li><a href="#">About</a></li> 
+			<li><a href="#">Page 3</a></li> 
+		  </ul>
+		</div>
+</nav>
+<div id="res"class="container">
+	<h1 align="center"style="color:#fff">Resume</h1>
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-right"></span> EDUCATION</div>
+			<div class="collapse in">
+				<div class="panel-body">
+				<table class="table">
+				<tbody><tr>
+					<th>College</th>
+					<td>Wentworth Institute of Technology, Boston, MA
+					<br />Bachelor of Science in Computer Science
+					<br />GPA: 3.7/4.0
+					<br />Expected Year of Graduation: 2018
+					</td>
+					</tr><tr>
+					<th>High School</th>
+					<td>Blackstone Valley Regional Vocational Technical High School, Upton, MA
+					<br />Vocational Major: Information Technology
+					<br />Attended: August 2010 – May 2014
+					</td>
+				</tr></tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> WORK EXPERIENCE</div>
+			<div class="collapse">
+				<div class="panel-body">
+				<table class="table table-bordered table-striped">
+				<thead><tr>
+					<th>Job Title</th><th>Employer</th><th>Time of Employment</th><th>Duties</th>
+				</tr></thead>
+				<tbody>
+					<tr>
+						<td>Firmware Development Intern</td>
+						<td>Seagate<br />Shrewsbury, MA</td>
+						<td>May 2015 - August 2015</td>
+						<td><ul style="padding-left:1em">
+							<li>Programming Automation of Drive Testing
+							<li>Building upon Company Websites
+							<li>Team Project Collaboration
+							<li>Presenting Solutions and Ideas to a group
+						</ul></td>
+					</tr>
+					<tr>
+						<td>Mobile and Tech Sales Associate</td>
+						<td>Staples<br />Milford, MA</td>
+						<td>November 2013 - August 2014</td>
+						<td><ul style="padding-left:1em">
+							<li>Pitching Sales
+							<li>Recommending Products
+							<li>Computer Repair
+							<li>Knowledge of Tech Products
+						</ul></td>
+					</tr>
+					<tr>
+						<td>Dishwasher/Busser</td>
+						<td>Donna Jeans Diner<br />Laconia, NH</td>
+						<td>Summer 2013</td>
+						<td><ul style="padding-left:1em">
+							<li>Washing Dishes
+							<li>Cleaning
+							<li>Customer Service
+						</ul></td>
+					</tr>
+				</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> TECHNICAL SKILLS</div>
+			<div class="collapse">
+				<div class="panel-body">
+				<ul style="padding-left:1em">
+					<li>Programming with Java, C++, C#, Ruby, Python, SQL, and Web-based languages (PHP, JavaScript, CSS, HTML)
+					<li>Integrating Application Program Interfaces with various languages
+					<li>Designing, Programming and Maintaining Webpages
+					<li>Managing and Maintaining Databases
+					<li>Troubleshooting PC Hardware and Software
+					<li>Designing  and Administrating Networks
+					<li>Working with Customers/Clients face-to-face and over the phone
+					<li>Using Linux and Command Line Interface (Ubuntu)
+					<li>Audio and Video Production and Editing
+				</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> VOLUNTEER EXPERIENCE</div>
+			<div class="collapse">
+				<div class="panel-body">Panel Content</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> ACHIEVEMENTS</div>
+			<div class="collapse">
+				<div class="panel-body">
+				<ul style="padding-left:1em">
+					<li>OSHA 10-Hr Health & Safety Certification
+					<li>2 year SkillsUSA Participant at District and State level
+					<li>Highest Class Average in Physics Freshmen and Junior year
+					<li>Highest Class Average in Math Junior and Senior year
+					<li>Jury Award Winner at Campus Movie Fest
+				</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> REFERENCES</div>
+			<div class="collapse">
+				<div class="panel-body">Panel Content</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> INTERESTS & ACTIVITIES</div>
+			<div class="collapse">
+				<div class="panel-body">
+				<ul>
+					<li>Hockey
+					<li>Producing Audio/Video
+					<li>Programming
+					<li>Wentworth Leadership	
+					<li>Wentworth Internet Radio Club
+					<li>Networking
+					<li>Game Development
+					<li>Mobile App Development
+				</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><span class="glyphicon glyphicon-triangle-bottom"></span> INDEPENDENT PROJECTS</div>
+			<div class="collapse">
+				<div class="panel-body"><a href="http://slaunchpad.x10.mx/">High School Senior Project</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="container-fluid" style="background-color:#2e2e2e;color:#fff;padding:10px 0px 10px 0px;">
+	<div class="container">
+		<h5 align="center">* Copyright Derek Cannistraro 2015 *</h1>
+	</div>
+</footer>
+</body>
+</html>
