@@ -1,0 +1,1 @@
+http://jakevdp.github.io/blog/2012/09/05/quantum-python/
