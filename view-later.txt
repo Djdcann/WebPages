@@ -1,1 +1,2 @@
 http://jakevdp.github.io/blog/2012/09/05/quantum-python/
+https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/
