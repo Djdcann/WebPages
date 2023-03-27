@@ -1,54 +1,27 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en-US">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
         <title>Cool</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <style>
-            .collapsible-box {
-                position: absolute;
-                top: 0;
-                left: -30%; /* updated */
-                width: 30%; /* updated */
-                height: 100%;
-                background-color: #f1f1f1;
-                overflow: hidden;
-                transition: left 0.5s; /* updated */
-            }
-
-            .collapsible-box.open {
-                left: 0; /* updated */
-            }
-
-            .collapsible-header {
-                padding: 10px;
-                background-color: #555;
-                color: #fff;
-                cursor: pointer;
-            }
-
-            .collapsible-content {
-                padding: 10px;
-                overflow-y: scroll;
-                max-height: fit-content;
-                display: flexbox;
-                word-wrap: break-word;
-            }
-
-        </style>
-
+        <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
+        <div id="bg"></div>
         <div id="word" style="font-size: 100px; font-weight: bold; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
         <div style="position:absolute;left:0%;width:200px;display:block;"></div>
 
         <div id="box"class="collapsible-box open" style="width: 30%;">
-            <div class="collapsible-header" onclick="toggleCollapsible()">History</div>
-            <div id="cat" class="collapsible-content" style="display: block;"></div>
+            <!-- <div class="collapsible-header" onclick="toggleCollapsible()">History</div> -->
+            <div id="cats" class="collapsible-content">
+                <div id="parent" class="content-box">
+                    <div id="cat" class="content-box-top"></div>
+                    <div id="save" class="content-box-bottom"></div>
+                </div>
+            </div>
         </div>
 
 <div style="text-align:center">
@@ -74,155 +47,40 @@
 <label>
     <input type="checkbox" id="loopCheckbox" checked> Loop
 </label>
+<br />
+
+<div class="icon-container">
+    <a href="" id="wikipedia"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="icon" fill="currentColor" viewBox="0 0 16 16">
+    <path
+        d="M8.835 3.003c.828-.006 2.688 0 2.688 0l.033.03v.288c0 .08-.045.12-.133.12-.433.02-.522.063-.68.29-.087.126-.258.393-.435.694l-1.52 2.843-.043.089 1.858 3.801.113.031 2.926-6.946c.102-.28.086-.478-.044-.595-.132-.114-.224-.18-.563-.195l-.275-.014a.161.161 0 0 1-.096-.035.1.1 0 0 1-.046-.084v-.289l.042-.03h3.306l.034.03v.29c0 .078-.045.117-.133.117-.433.02-.754.113-.962.281a1.64 1.64 0 0 0-.488.704s-2.691 6.16-3.612 8.208c-.353.672-.7.61-1.004-.019A224.05 224.05 0 0 1 8.044 8.81c-.623 1.285-1.475 3.026-1.898 3.81-.411.715-.75.622-1.02.019-.45-1.065-1.131-2.519-1.817-3.982-.735-1.569-1.475-3.149-1.943-4.272-.167-.4-.293-.657-.412-.759-.12-.1-.368-.16-.746-.18C.069 3.429 0 3.395 0 3.341v-.303l.034-.03c.615-.003 3.594 0 3.594 0l.034.03v.288c0 .08-.05.118-.15.118l-.375.016c-.322.013-.483.11-.483.288 0 .083.034.217.109.4.72 1.753 3.207 6.998 3.207 6.998l.091.023 1.603-3.197-.32-.71L6.24 5.095s-.213-.433-.286-.577l-.098-.196c-.387-.77-.411-.82-.865-.88-.137-.017-.208-.035-.208-.102v-.304l.041-.03h2.853l.075.024v.303c0 .069-.05.104-.15.104l-.206.03c-.523.04-.438.254-.09.946l1.057 2.163 1.17-2.332c.195-.427.155-.534.074-.633-.046-.055-.202-.144-.54-.158l-.133-.015a.159.159 0 0 1-.096-.034.099.099 0 0 1-.045-.085v-.288l.041-.03Z" />
+    </svg></a>
+    <a href="" id="youtube"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="icon"
+            fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+        </svg>
+    </a>
+    <a href="" id="dict"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="icon"
+            fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg>
+    </a>
+    <a href="" id="other-link"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="icon"
+            fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+        </svg>
+    </a>
+</div>
 
 </div>
 
-        <script>
-            var words1 = ["Hello", "World", "OpenAI", "ChatGPT", "Programming"]; // Your array of words
-            var words2 = ["inchoate", "lacuna lacunar", "perfuse suffuse diffuse", "embolus", "palaver", "punctate", "unctuous", "glib", "boondoggle", "waggish", "remunerate", "mellifluous", "torpor", "tryst", "postprandial tumescence", "gestalt", "habitue", "recalcitrant", "prurience", "replete", "animadvert", "eristic", "styptic", "astringent", "quandary", "soporific", "solmization", "ignominious", "symposium", "inveterate", "reverie", "vignette", "adulation"];
-            var words3 = ["渾", "廈", "王道楽土"]
-            var countryFlags = ["🇦🇨", "🇦🇩", "🇦🇪", "🇦🇫", "🇦🇬", "🇦🇮", "🇦🇱", "🇦🇲", "🇦🇴", "🇦🇶", "🇦🇷", "🇦🇸", "🇦🇹", "🇦🇺", "🇦🇼", "🇦🇽", "🇦🇿", "🇧🇦", "🇧🇧", "🇧🇩", "🇧🇪", "🇧🇫", "🇧🇬", "🇧🇭", "🇧🇮", "🇧🇯", "🇧🇱", "🇧🇲", "🇧🇳", "🇧🇴", "🇧🇶", "🇧🇷", "🇧🇸", "🇧🇹", "🇧🇻", "🇧🇼", "🇧🇾", "🇧🇿", "🇨🇦", "🇨🇨", "🇨🇩", "🇨🇫", "🇨🇬", "🇨🇭", "🇨🇮", "🇨🇰", "🇨🇱", "🇨🇲", "🇨🇳", "🇨🇴", "🇨🇷", "🇨🇺", "🇨🇻", "🇨🇼", "🇨🇽", "🇨🇾", "🇨🇿", "🇩🇪", "🇩🇬", "🇩🇯", "🇩🇰", "🇩🇲", "🇩🇴", "🇩🇿", "🇪🇦", "🇪🇨", "🇪🇪", "🇪🇬", "🇪🇭", "🇪🇷", "🇪🇸", "🇪🇹", "🇪🇺", "🇫🇮", "🇫🇯", "🇫🇰", "🇫🇲", "🇫🇴", "🇫🇷", "🇬🇦", "🇬🇧", "🇬🇩", "🇬🇪", "🇬🇫", "🇬🇬", "🇬🇭", "🇬🇮", "🇬🇱", "🇬🇲", "🇬🇳", "🇬🇵", "🇬🇶", "🇬🇷", "🇬🇸", "🇬🇹", "🇬🇺", "🇬🇼", "🇬🇾", "🇭🇰", "🇭🇲", "🇭🇳", "🇭🇷", "🇭🇹", "🇭🇺", "🇮🇨", "🇮🇩", "🇮🇪", "🇮🇱", "🇮🇲", "🇮🇳", "🇮🇴", "🇮🇶", "🇮🇷", "🇮🇸", "🇮🇹", "🇯🇪", "🇯🇲", "🇯🇴", "🇯🇵", "🇰🇪", "🇰🇬", "🇰🇭", "🇰🇮", "🇰🇲", "🇰🇳", "🇰🇵", "🇰🇷", "🇰🇼", "🇰🇾", "🇰🇿", "🇱🇦", "🇱🇧", "🇱🇨", "🇱🇮", "🇱🇰", "🇱🇷", "🇱🇸", "🇱🇹", "🇱🇺", "🇱🇻", "🇱🇾", "🇲🇦", "🇲🇨", "🇲🇩", "🇲🇪", "🇲🇫", "🇲🇬", "🇲🇭", "🇲🇰", "🇲🇱", "🇲🇲", "🇲🇳", "🇲🇴", "🇲🇵", "🇲🇶", "🇲🇷", "🇲🇸", "🇲🇹", "🇲🇺", "🇲🇻", "🇲🇼", "🇲🇽", "🇲🇾", "🇲🇿", "🇳🇦", "🇳🇨", "🇳🇪", "🇳🇫", "🇳🇬", "🇳🇮", "🇳🇱", "🇳🇴", "🇳🇵", "🇳🇷", "🇳🇺", "🇳🇿", "🇴🇲", "🇵🇦", "🇵🇪", "🇵🇫", "🇵🇬", "🇵🇭", "🇵🇰", "🇵🇱", "🇵🇲", "🇵🇳", "🇵🇷", "🇵🇸", "🇵🇹", "🇵🇼", "🇵🇾", "🇶🇦", "🇷🇪", "🇷🇴", "🇷🇸", "🇷🇺", "🇷🇼", "🇸🇦", "🇸🇧", "🇸🇨", "🇸🇩", "🇸🇪", "🇸🇬", "🇸🇭", "🇸🇮", "🇸🇯", "🇸🇰", "🇸🇱", "🇸🇲", "🇸🇳", "🇸🇴", "🇸🇷", "🇸🇸", "🇸🇹", "🇸🇻", "🇸🇽", "🇸🇾", "🇸🇿", "🇹🇦", "🇹🇨", "🇹🇩", "🇹🇫", "🇹🇬", "🇹🇭", "🇹🇯", "🇹🇰", "🇹🇱", "🇹🇲", "🇹🇳", "🇹🇴", "🇹🇷", "🇹🇹", "🇹🇻", "🇹🇼", "🇹🇿", "🇺🇦", "🇺🇬", "🇺🇲", "🇺🇸", "🇺🇾", "🇺🇿", "🇻🇦", "🇻🇨", "🇻🇪", "🇻🇬", "🇻🇮", "🇻🇳", "🇻🇺", "🇼🇫", "🇼🇸", "🇾🇪", "🇾🇹", "🇿🇦", "🇿🇲", "🇿🇼"];
-
-            shuffleArray(countryFlags);
-
-            const arrayMap = {
-                array1: words1,
-                array2: words2,
-                array3: words3,
-                array4: countryFlags,
-                // Add more entries for your other word arrays
-            };
-
-            var words = countryFlags;
-            var currentWordIndex = 0;
-            var displayTime = 200; // Time in milliseconds
-            var isPaused = false;
-            var isLoop = true;
-
-            function iterate() {
-                if (!isPaused){
-                    displayWord(currentWordIndex);
-                    document.getElementById("cat").innerHTML += words[currentWordIndex] + " ";
-                    if (currentWordIndex == words.length - 1) {
-                        if (isLoop){
-                            currentWordIndex = 0;
-                        }else{
-                            isPaused = true;
-                        }
-                    }else{
-                        currentWordIndex++;
-                    }
-                }
-                if (!isPaused){
-                setTimeout(iterate, displayTime);
-                }
-            }
-
-            // Fisher-Yates shuffle algorithm
-            function shuffleArray(array) {
-                // Loop over the array from the end to the beginning
-                for (let i = array.length - 1; i > 0; i--) {
-                    // Pick a random index from 0 to i
-                    const j = Math.floor(Math.random() * (i + 1));
-
-                    // Swap the elements at positions i and j
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-            }
-
-
-            function displayWord(index){
-                document.getElementById("word").innerHTML = words[index];
-            }
-
-            iterate();
-
-            function toggleCollapsible() {
-                var box = document.querySelector(".collapsible-box");
-                box.classList.toggle("open");
-                /*if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }*/
-            }
-
-            function togglePause(){
-                isPaused = !isPaused;
-                if (!isPaused) {
-                    iterate();
-                }
-            }
-
-            document.addEventListener("keydown", function (event) {
-                if (event.code === "Space") {
-                    togglePause();
-                }
-                if (event.code === "ShiftLeft") {
-                    toggleCollapsible();
-                }
-                if (event.code === "ArrowLeft") {
-                    if (isPaused) {
-                        if (currentWordIndex == 0){
-                            currentWordIndex = words.length-1;
-                        }else{
-                            currentWordIndex--;
-                        }
-                        displayWord(currentWordIndex)
-                    }
-                }
-                if (event.code === "ArrowRight") {
-                    if (isPaused){
-                        if (currentWordIndex == words.length-1) {
-                            currentWordIndex = 0;
-                        }else{
-                            currentWordIndex++;
-                        }
-                        displayWord(currentWordIndex)
-                    }
-                }
-            });
-
-            var displayTimeSlider = document.getElementById("display-time-slider");
-            var displayTimeValue = document.getElementById("display-time-value");
-
-                displayTimeSlider.addEventListener("input", function () {
-                    displayTime = parseInt(this.value);
-                    displayTimeValue.textContent = displayTime + "ms";
-                });
-
-            const fontSizeInput = document.querySelector('#font-size');
-            const fontSizeValue = document.getElementById("font-size-value");
-            const wordElement = document.querySelector('#word');
-
-            // Listen for changes to the input slider
-            fontSizeInput.addEventListener('input', function (event) {
-                // Get the value of the input slider
-                const fontSize = event.target.value;
-
-                // Update the font size of the word element
-                wordElement.style.fontSize = `${fontSize}px`;
-                fontSizeValue.textContent = `${fontSize}px`;
-            });
-
-            const arraySelector = document.querySelector('#array-selector');
-
-                // Listen for changes to the dropdown selector
-                arraySelector.addEventListener('change', function (event) {
-                    // Get the value of the selected option
-                    const selectedArray = event.target.value;
-
-                    // Update the main array based on the selected option
-                    words = arrayMap[selectedArray];
-                    currentWordIndex = 0;
-                });
-
-            const loopCheckbox = document.getElementById('loopCheckbox');
-            loopCheckbox.addEventListener('change', () => {
-                isLoop = loopCheckbox.checked;
-            });
+        <script src="main.js">
         </script>
 
-        <script src="" async defer></script>
+        <!-- <div id="wid"><a id="yg-widget-0" class="youglish-widget" data-query="great%20power" data-lang="english" data-components="8415"
+            data-bkg-color="theme_light" rel="nofollow" href="https://youglish.com">Visit YouGlish.com</a></div>
+        <script async src="https://youglish.com/public/emb/widget.js" charset="utf-8"></script> -->
     </body>
 </html>
