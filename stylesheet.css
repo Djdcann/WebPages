@@ -8,26 +8,29 @@
     transition: left 0.5s; /* updated */
 }
 
-/* body {
-  background-image: radial-gradient(circle, white, gray);
-  background-size: cover;
-  background-position: center center;
-} */
+html,body{
+    margin:0;
+    height: 100%;
+}
 
-#bg {
-    background: radial-gradient(circle, white 0%, gray 100%);
+body {
+    background-color: #313131;
+    background-image: radial-gradient(farthest-side at 50% 50%,#777,#313131);
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center center;
     animation: gradient 4s ease-in-out infinite alternate;
   }
 
   @keyframes gradient {
-    0% {
-      background-size: 50%;
-    }
-    100% {
-      background-size: 200%;
-    }
+  0% {
+    background-size: 120% 136%;
+    background-position: center center;
+  }
+  100% {
+    background-size: 150% 190%;
+    background-position: center center;
+  }
   }
 
 .collapsible-box.open {
