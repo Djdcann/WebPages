@@ -747,7 +747,7 @@ function buildDock(){
     const b = document.createElement("button");
     b.className = "color-btn";
     b.style.setProperty("--c", c.hex);
-    b.innerHTML = `<span class="key">${i+1}·${c.keys.join("/").toUpperCase()}</span>${c.name}`;
+    b.innerHTML = `<span class="key">${i+1}</span>${c.name}`;
     b.addEventListener("click", ()=>applyColor(c));
     dock.appendChild(b);
   });
