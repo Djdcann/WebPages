@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate Solutions</title>
+<!-- Offline viewer. Keep this file in the same folder as strategy-1-6-solutions,
+     strategy-solutions and gridlock-solutions. No internet needed. -->
+<style>
+  :root{
+    --bg:#0e1116; --panel:#181c24; --panel-2:#222834; --line:#2d3441;
+    --text:#e8e8e8; --muted:#9aa2ad; --accent:#ff9500; --accent-ink:#1b1200; --blue:#8fd8ff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;}
+  header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);
+    padding:12px 16px 10px;}
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  h1{font-size:1.15rem;margin:0;letter-spacing:.5px;}
+  .row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .label{color:var(--muted);font-size:.8rem;min-width:52px;text-transform:uppercase;letter-spacing:.08em;}
+  button{font:inherit;font-size:.9rem;color:var(--text);background:var(--panel-2);border:1px solid var(--line);
+    border-radius:6px;padding:5px 11px;cursor:pointer;min-height:32px;}
+  button:hover{border-color:var(--muted);}
+  button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600;}
+  button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  .tabs button{font-size:1rem;padding:6px 16px;}
+  .nav{margin-left:auto;display:flex;gap:6px;}
+  main{padding:14px 16px 28px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .caption{color:var(--muted);font-size:.9rem;text-align:center;}
+  .caption b{color:var(--text);}
+  .viewer{max-width:100%;}
+  .viewer img{display:block;max-width:100%;height:auto;max-height:calc(100vh - 230px);
+    border-radius:8px;image-rendering:auto;}
+  .viewer.full img{max-height:none;}
+  .missing{border:1px dashed var(--line);border-radius:8px;padding:28px;color:var(--muted);text-align:center;max-width:560px;}
+  .hint{color:var(--muted);font-size:.8rem;text-align:center;}
+  kbd{background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:0 5px;font-size:.78rem;}
+  @media (max-width:640px){
+    .nav{margin-left:0;width:100%;}
+    .viewer img{max-height:none;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>Activate Solutions</h1>
+    <div class="tabs" id="games" role="group" aria-label="Game"></div>
+    <div class="nav">
+      <button id="prev" title="Previous wave (Left arrow)">◄ Prev</button>
+      <button id="next" title="Next wave (Right arrow)">Next ►</button>
+      <button id="fit" title="Toggle fit to screen (F)" aria-pressed="true">Fit</button>
+    </div>
+  </div>
+  <div class="row"><span class="label">Level</span><div id="levels" class="row" style="margin:0" role="group" aria-label="Level"></div></div>
+  <div class="row"><span class="label">Wave</span><div id="waves" class="row" style="margin:0" role="group" aria-label="Wave"></div></div>
+  <div class="row" id="variantRow"><span class="label">Version</span><div id="variants" class="row" style="margin:0" role="group" aria-label="Version"></div></div>
+</header>
+
+<main>
+  <div class="caption" id="caption"></div>
+  <div class="viewer" id="viewer"></div>
+  <div class="hint"><kbd>←</kbd> <kbd>→</kbd> previous / next wave · <kbd>V</kbd> switch version · <kbd>F</kbd> fit to screen</div>
+</main>
+
+<script>
+// ---- what exists on disk -------------------------------------------------------------------
+// variant ids map to file suffixes: solution -> "-solution.png", fast -> "-fast-solution.png",
+// alt -> "-alt-solution.png"
+const SUFFIX = { solution: '-solution', fast: '-fast-solution', alt: '-alt-solution' };
+const TIMED = [['fast', 'Fastest (timed)'], ['solution', 'Fewest steps']];
+const ONLY = label => [['solution', label]];
+const GAMES = [
+  { id: 'strategy', name: 'Strategy', prefix: '', levels: [
+    { n: 1, waves: 4, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca' },
+    { n: 2, waves: 4, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca' },
+    { n: 3, waves: 5, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca' },
+    { n: 4, waves: 5, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca' },
+    { n: 5, waves: 5, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca' },
+    { n: 6, waves: 5, dir: 'strategy-1-6-solutions', variants: ONLY('Time-optimal'), source: 'activate-scores.ca, with the centre wall' },
+    { n: 7, waves: 5, dir: 'strategy-solutions', variants: ONLY('Fewest steps'), source: 'ryflix simulator' },
+    { n: 8, waves: 5, dir: 'strategy-solutions', variants: ONLY('Fewest steps'), source: 'ryflix simulator' },
+    { n: 9, waves: 5, dir: 'strategy-solutions', variants: TIMED, source: 'ryflix simulator' },
+    { n: 10, waves: 5, dir: 'strategy-solutions', variants: TIMED, source: 'ryflix simulator',
+      extra: { 1: [['alt', 'Alternate (bottom 1st & 3rd = 1)']] } },
+  ]},
+  { id: 'gridlock', name: 'Gridlock', prefix: 'gridlock-', levels: [
+    { n: 3, waves: 4, dir: 'gridlock-solutions', variants: ONLY('Time-optimal'), source: 'ryflix simulator' },
+    { n: 4, waves: 4, dir: 'gridlock-solutions', variants: ONLY('Time-optimal'), source: 'ryflix simulator' },
+    { n: 6, waves: 4, dir: 'gridlock-solutions', variants: ONLY('Time-optimal'), source: 'ryflix simulator' },
+    { n: 7, waves: 4, dir: 'gridlock-solutions', variants: ONLY('Fewest steps'), source: 'ryflix simulator' },
+    { n: 8, waves: 4, dir: 'gridlock-solutions', variants: ONLY('Fewest steps'), source: 'ryflix simulator' },
+    { n: 9, waves: 4, dir: 'gridlock-solutions', variants: TIMED, source: 'ryflix simulator' },
+    { n: 10, waves: 4, dir: 'gridlock-solutions', variants: TIMED, source: 'ryflix simulator' },
+  ]},
+];
+
+// flat, ordered list of every wave, for prev / next across levels
+const ALL = [];
+GAMES.forEach(g => g.levels.forEach(l => { for (let w = 1; w <= l.waves; w++) ALL.push({ g, l, w }); }));
+
+const variantsFor = (l, w) => [...l.variants, ...((l.extra && l.extra[w]) || [])];
+const fileFor = (g, l, w, v) => `${l.dir}/${g.prefix}${l.n}-${w}${SUFFIX[v]}.png`;
+
+let state = { game: 'strategy', level: 1, wave: 1, variant: null };
+let fit = true;
+try { fit = localStorage.getItem('fit') !== '0'; } catch (e) {}
+
+function current() {
+  const g = GAMES.find(x => x.id === state.game);
+  const l = g.levels.find(x => x.n === state.level) || g.levels[0];
+  const w = Math.min(Math.max(1, state.wave), l.waves);
+  const vs = variantsFor(l, w);
+  const v = vs.some(x => x[0] === state.variant) ? state.variant : vs[0][0];
+  return { g, l, w, v, vs };
+}
+
+function pills(el, items, isOn, onPick) {
+  el.textContent = '';
+  items.forEach(([key, label]) => {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.setAttribute('aria-pressed', String(isOn(key)));
+    b.onclick = () => onPick(key);
+    el.appendChild(b);
+  });
+}
+
+function render(pushHash = true) {
+  const { g, l, w, v, vs } = current();
+  state = { game: g.id, level: l.n, wave: w, variant: v };
+
+  pills(document.getElementById('games'), GAMES.map(x => [x.id, x.name]), k => k === g.id,
+        k => { state = { game: k, level: GAMES.find(x => x.id === k).levels[0].n, wave: 1, variant: null }; render(); });
+  pills(document.getElementById('levels'), g.levels.map(x => [x.n, String(x.n)]), k => k === l.n,
+        k => { state.level = k; state.wave = 1; render(); });
+  pills(document.getElementById('waves'), Array.from({ length: l.waves }, (_, i) => [i + 1, String(i + 1)]),
+        k => k === w, k => { state.wave = k; render(); });
+  pills(document.getElementById('variants'), vs, k => k === v, k => { state.variant = k; render(); });
+  document.getElementById('variantRow').style.display = vs.length > 1 ? '' : 'none';
+
+  const label = vs.find(x => x[0] === v)[1];
+  document.getElementById('caption').innerHTML =
+    `<b>${g.name} ${l.n}-${w}</b> · ${label} · <span>from ${l.source}</span>`;
+
+  const viewer = document.getElementById('viewer');
+  viewer.className = 'viewer' + (fit ? '' : ' full');
+  viewer.textContent = '';
+  const src = fileFor(g, l, w, v);
+  const img = new Image();
+  img.alt = `${g.name} ${l.n}-${w} ${label} solution`;
+  img.src = src;
+  img.onerror = () => {
+    viewer.innerHTML = `<div class="missing">Image not found: <b>${src}</b><br><br>` +
+      'Keep this page in the same folder as the strategy-1-6-solutions, strategy-solutions and gridlock-solutions folders.</div>';
+  };
+  viewer.appendChild(img);
+
+  const i = ALL.findIndex(x => x.g === g && x.l === l && x.w === w);
+  document.getElementById('prev').disabled = i <= 0;
+  document.getElementById('next').disabled = i >= ALL.length - 1;
+  document.getElementById('fit').setAttribute('aria-pressed', String(fit));
+  document.title = `${g.name} ${l.n}-${w} · Activate Solutions`;
+  if (pushHash) history.replaceState(null, '', `#${g.id}-${l.n}-${w}-${v}`);
+}
+
+function step(d) {
+  const { g, l, w } = current();
+  const i = ALL.findIndex(x => x.g === g && x.l === l && x.w === w) + d;
+  if (i < 0 || i >= ALL.length) return;
+  state = { game: ALL[i].g.id, level: ALL[i].l.n, wave: ALL[i].w, variant: state.variant };
+  render();
+}
+
+function fromHash() {
+  const m = /^#(strategy|gridlock)-(\d+)-(\d+)(?:-(\w+))?$/.exec(location.hash);
+  if (m) state = { game: m[1], level: +m[2], wave: +m[3], variant: m[4] || null };
+}
+
+document.getElementById('prev').onclick = () => step(-1);
+document.getElementById('next').onclick = () => step(1);
+document.getElementById('fit').onclick = () => {
+  fit = !fit;
+  try { localStorage.setItem('fit', fit ? '1' : '0'); } catch (e) {}
+  render();
+};
+document.addEventListener('keydown', e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  if (e.key === 'ArrowLeft') step(-1);
+  else if (e.key === 'ArrowRight') step(1);
+  else if (e.key === 'v' || e.key === 'V') {
+    const { v, vs } = current();
+    state.variant = vs[(vs.findIndex(x => x[0] === v) + 1) % vs.length][0]; render();
+  } else if (e.key === 'f' || e.key === 'F') document.getElementById('fit').click();
+});
+window.addEventListener('hashchange', () => { fromHash(); render(false); });
+
+fromHash();
+render();
+</script>
+</body>
+</html>
